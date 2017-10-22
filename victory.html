@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-12 columns">
+            <h1 class="text-center">YOU WIN!</h1>
+            <h2 class="text-center">WINNER</h2>
+            <div class="sprites">
+                <img src="images/bulb.gif">
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="start-new-game" @click="startNewGame">ANOTHER MATCH</button>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
