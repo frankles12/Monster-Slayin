@@ -3,6 +3,8 @@ new Vue({
     data: {
         playerHealth: 100,
         monsterHealth: 100,
+		playerMana: 100,
+		monsterMana: 100,
         gameIsRunning: false,
         turns: [],
         round: 1
@@ -12,6 +14,8 @@ new Vue({
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+			this.playerMana = 100;
+			this.monsterMana = 100;
             this.turns = [];
         },
         attack: function () {
@@ -29,7 +33,9 @@ new Vue({
         },
 
         specialAttack: function () {
-            var damage = this.calculateDamage(10, 20);
+		if(this.playerMana >= 25){
+			this.playerMana -= 25;
+			var damage = this.calculateDamage(10, 20);
             this.monsterHealth -= damage;
             this.turns.unshift({
                 playerType: 'human',
@@ -38,6 +44,13 @@ new Vue({
             if (this.checkWin()) {
                 return;
             }
+		}
+		else{
+		this.turns.unshift({
+                playerType: 'human',
+                text: 'Player doesn\'t have enough mana!'
+            });
+		}
             this.monsterAttacks();
             this.appendCurrentRounds();
         },

@@ -21,6 +21,13 @@
                     {{ playerHealth }}
                 </div>
             </div>
+            <div class="manabar">
+                <div class="manabar text-center"
+                     style="background-color: blue; margin: 0; color: white;"
+                     :style="{width: playerMana + '%'}">
+                    {{ playerMana }}
+                </div>
+            </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
@@ -32,6 +39,13 @@
                      style="background-color: green; margin: 0; color: white;"
                      :style="{width: monsterHealth + '%'}">
                     {{ monsterHealth }}
+                </div>
+            </div>
+            <div class="manabar">
+                <div class="manabar text-center"
+                     style="background-color: blue; margin: 0; color: white;"
+                     :style="{width: monsterMana + '%'}">
+                    {{ monsterMana }}
                 </div>
             </div>
         </div>
