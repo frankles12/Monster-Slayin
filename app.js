@@ -60,17 +60,31 @@ new Vue({
         },
 
         heal: function () {
-            var heal = this.calculateDamage(5, 20);
-            if (this.playerHealth <= 90) {
-                this.playerHealth += heal;
+
+            if (this.playerMana - 10 >= 0) {
+                this.playerMana -= 10;
+
+                var heal = this.calculateDamage(5, 20);
+                if (this.playerHealth <= 90) {
+                    this.playerHealth += heal;
+                } else {
+                    this.playerHealth = 100;
+                }
+                if (this.playerMana - 10 >= 0) {
+                    this.playerMana -= 10;
+                }
+
+                this.turns.unshift({
+                    playerType: 'human',
+                    text: 'Player heals for ' + heal
+                });
             } else {
-                this.playerHealth = 100;
+                this.turns.unshift({
+                    playerType: 'human',
+                    text: 'Player doesn\'t have enough mana!'
+                });
             }
-            this.playerMana -= 10;
-            this.turns.unshift({
-                playerType: 'human',
-                text: 'Player heals for ' + heal
-            });
+
             this.monsterAttacks();
             this.appendCurrentRounds();
         },
