@@ -3,8 +3,8 @@ new Vue({
     data: {
         playerHealth: 100,
         monsterHealth: 100,
-		playerMana: 100,
-		monsterMana: 100,
+        playerMana: 100,
+        monsterMana: 100,
         gameIsRunning: false,
         turns: [],
         round: 1
@@ -12,13 +12,14 @@ new Vue({
     methods: {
         startNewGame: function () {
             window.location.href = 'index.html';
+            this.startGame();
         },
         startGame: function () {
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
-			this.playerMana = 100;
-			this.monsterMana = 100;
+            this.playerMana = 100;
+            this.monsterMana = 100;
             this.turns = [];
         },
         attack: function () {
@@ -36,24 +37,24 @@ new Vue({
         },
 
         specialAttack: function () {
-		if(this.playerMana >= 25){
-			this.playerMana -= 25;
-			var damage = this.calculateDamage(10, 20);
-            this.monsterHealth -= damage;
-            this.turns.unshift({
-                playerType: 'human',
-                text: 'Player hits monster hard for ' + damage
-            });
-            if (this.checkWin()) {
-                return;
+            if (this.playerMana >= 25) {
+                this.playerMana -= 25;
+                var damage = this.calculateDamage(10, 20);
+                this.monsterHealth -= damage;
+                this.turns.unshift({
+                    playerType: 'human',
+                    text: 'Player hits monster hard for ' + damage
+                });
+                if (this.checkWin()) {
+                    return;
+                }
             }
-		}
-		else{
-		this.turns.unshift({
-                playerType: 'human',
-                text: 'Player doesn\'t have enough mana!'
-            });
-		}
+            else {
+                this.turns.unshift({
+                    playerType: 'human',
+                    text: 'Player doesn\'t have enough mana!'
+                });
+            }
             this.monsterAttacks();
             this.appendCurrentRounds();
         },
@@ -74,6 +75,7 @@ new Vue({
 
         giveUp: function () {
             this.gameIsRunning = false;
+            this.startNewGame();
         },
 
         monsterAttacks: function () {
