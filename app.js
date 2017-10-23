@@ -60,14 +60,16 @@ new Vue({
         },
 
         heal: function () {
+            var heal = this.calculateDamage(5, 20);
             if (this.playerHealth <= 90) {
-                this.playerHealth += 10;
+                this.playerHealth += heal;
             } else {
                 this.playerHealth = 100;
             }
+            this.playerMana -= 10;
             this.turns.unshift({
                 playerType: 'human',
-                text: 'Player heals for 10'
+                text: 'Player heals for ' + heal
             });
             this.monsterAttacks();
             this.appendCurrentRounds();
