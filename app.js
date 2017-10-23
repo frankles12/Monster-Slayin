@@ -8,6 +8,9 @@ new Vue({
         round: 1
     },
     methods: {
+        startNewGame: function () {
+            window.location.href = 'index.html';
+        },
         startGame: function () {
             this.gameIsRunning = true;
             this.playerHealth = 100;
@@ -76,19 +79,10 @@ new Vue({
 
         checkWin: function () {
             if (this.monsterHealth <= 0) {
-                if (confirm('You won! New Game?')) {
-                    this.startGame();
-                } else {
-                    this.gameIsRunning = false;
-                }
+                window.location.href = 'victory.html';
                 return true;
             } else if (this.playerHealth <= 0) {
-                if (confirm('You lost! New Game?')) {
-                    this.startGame();
-                } else {
-                    this.gameIsRunning = false;
-
-                }
+                window.location.href = 'defeat.html';
                 return true;
             }
             return false;
