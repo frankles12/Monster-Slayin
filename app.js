@@ -125,7 +125,7 @@ new Vue({
 
         giveUp: function () {
             this.gameIsRunning = false;
-            this.startNewGame();
+            window.location.href = 'defeat.html';
         },
 
         monsterAttacks: function () {
