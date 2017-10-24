@@ -13,9 +13,11 @@
         <div class="small-12 columns">
             <h1 class="text-center">YOU LOSE!</h1>
             <h2 class="text-center">WINNER</h2>
-            <div class="sprites">
-                <img src="images/char.gif">
-            </div>
+            <template v-for="monster in monsters">
+                <div class="sprites small-4 columns">
+                    <img :src="monster.img"/>
+                </div>
+            </template>
         </div>
     </section>
     <section class="row controls">
