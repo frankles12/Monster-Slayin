@@ -2,12 +2,42 @@ new Vue({
     el: '#app',
     data: {
         playerHealth: 100,
-        monsterHealth: 100,
         playerMana: 100,
-        monsterMana: 100,
         gameIsRunning: false,
         turns: [],
-        round: 1
+        round: 1,
+        monsters: [
+            {
+                name: 'DOG',
+                img: '/images/dog.gif',
+                health: 60,
+                mana: 60,
+                originalHealth: 60,
+                originalMana: 60,
+            },
+            {
+                name: 'EMERALD',
+                img: '/images/emerald.gif',
+                health: 80,
+                mana: 80,
+                originalHealth: 80,
+                originalMana: 80,
+            },
+            {
+                name: 'CHAR',
+                img: '/images/char.gif',
+                health: 100,
+                mana: 100,
+                originalHealth: 100,
+                originalMana: 100,
+            }
+        ],
+        currentMonsterIdx: 0
+    },
+    computed: {
+        currentMonster: function() {
+            return this.monsters[this.currentMonsterIdx];
+        }
     },
     methods: {
         startNewGame: function () {
@@ -15,16 +45,18 @@ new Vue({
             this.startGame();
         },
         startGame: function () {
+            for(var m in this.monsters) {
+                this.monsters[m].health = this.monsters[m].originalHealth;
+                this.monsters[m].mana = this.monsters[m].originalMana;
+            }
             this.gameIsRunning = true;
             this.playerHealth = 100;
-            this.monsterHealth = 100;
             this.playerMana = 100;
-            this.monsterMana = 100;
             this.turns = [];
         },
         attack: function () {
             var damage = this.calculateDamage(3, 10);
-            this.monsterHealth -= damage;
+            this.reduceMonsterHealth(damage);
             this.turns.unshift({
                 playerType: 'human',
                 text: 'Player hits monster for ' + damage
@@ -35,15 +67,17 @@ new Vue({
             this.monsterAttacks();
             this.appendCurrentRounds();
         },
-
+        reduceMonsterHealth: function(damage) {
+            this.monsters[this.currentMonsterIdx].health -= damage;
+        },
         specialAttack: function () {
             if (this.playerMana >= 25) {
                 this.playerMana -= 25;
                 var damage = this.calculateDamage(10, 20);
-                this.monsterHealth -= damage;
+                this.reduceMonsterHealth(damage);
                 this.turns.unshift({
                     playerType: 'human',
-                    text: 'Player hits monster hard for ' + damage
+                    text: 'Player hits ' + this.currentMonster.name + ' hard for ' + damage
                 });
                 if (this.checkWin()) {
                     return;
@@ -100,7 +134,7 @@ new Vue({
             this.checkWin();
             this.turns.unshift({
                 playerType: 'monster',
-                text: 'Monster hits player for ' + damage
+                text: this.currentMonster.name + ' hits player for ' + damage
             });
         },
 
@@ -109,9 +143,16 @@ new Vue({
         },
 
         checkWin: function () {
-            if (this.monsterHealth <= 0) {
-                window.location.href = 'victory.html';
-                return true;
+            if (this.currentMonster.health <= 0) {
+                if (this.currentMonsterIdx === this.monsters.length -1) {
+                    window.location.href = 'victory.html';
+                    return true;
+                } else {
+                    this.playerHealth = 100;
+                    this.playerMana = 100;
+                    this.currentMonsterIdx++;
+                    return true;
+                }
             } else if (this.playerHealth <= 0) {
                 window.location.href = 'defeat.html';
                 return true;

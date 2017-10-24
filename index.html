@@ -36,22 +36,22 @@
             </div>
         </div>
         <div class="small-6 columns">
-            <h1 class="text-center">MONSTER</h1>
+            <h1 class="text-center">{{currentMonster.name}}</h1>
             <div class="sprites">
-                <img src="images/char.gif">
+                <img :src="currentMonster.img" style="height:200px">
             </div>
             <div class="healthbar">
                 <div class="healthbar text-center"
                      style="background-color: green; margin: 0; color: white;"
-                     :style="{width: monsterHealth + '%'}">
-                    {{ monsterHealth }}
+                     :style="{width: currentMonster.health + '%'}">
+                    {{ currentMonster.health }}
                 </div>
             </div>
             <div class="manabar">
                 <div class="manabar text-center"
                      style="background-color: blue; margin: 0; color: white;"
-                     :style="{width: monsterMana + '%'}">
-                    {{ monsterMana }}
+                     :style="{width: currentMonster.mana + '%'}">
+                    {{ currentMonster.mana }}
                 </div>
             </div>
         </div>
